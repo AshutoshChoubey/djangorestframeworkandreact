@@ -1,0 +1,7 @@
+env/
+__pycache__/
+ecom/product/migrations/
+ecom/db.sqlite3
+db.sqlite3
+*.cfg
+env/pyvenv.cfg
