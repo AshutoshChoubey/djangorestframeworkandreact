@@ -3,6 +3,7 @@ import { BrowserRouter as Router,Route } from "react-router-dom";
 import Login from "./components/Auth/Login";
 import Home from "./components/Home/home";
 import AddProduct from "./components/Products/AddProduct";
+import ListProduct from "./components/Products/ListProduct";
 import Register from "./components/Auth/Register";
 import GuestRoute from "./components/GuestRoute";
 import Layout from "./components/Layout";
@@ -20,6 +21,7 @@ function App() {
           <GuestRoute path="/forget-password" component={ForgetPassword} />
           <GuestRoute path="/change-password/:slug" component={ResetPassword} />
           <GuestRoute path="/add-product" exact component={AddProduct} />
+          <GuestRoute path="/list-product" exact component={ListProduct} />
         </div>
         <Route path="/" exact component={Home} />
       </Layout>

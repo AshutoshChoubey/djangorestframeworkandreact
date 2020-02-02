@@ -31,7 +31,6 @@ class AddProduct extends Component {
     .post("http://127.0.0.1:8000/ecom/products/", data)
     .then(result => {
       NotificationManager.success(result.data.msg);
-      this.props.history.push("/login");
     })
     .catch(err => {
       if (err.response && err.response.status === 400)
@@ -50,7 +49,6 @@ class AddProduct extends Component {
   handleImage=e=>{
     e.preventDefault();
     this.setState({ image: e.target.files[0] });
-    console.log(this.state);
   };
   render() {
     return (
