@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { NotificationContainer, NotificationManager } from 'react-notifications';
-import axios from 'axios';
+import ProductService from './ProductService';
+const productService = new ProductService();
 class AddProduct extends Component {
   constructor(props) {
     super(props);
@@ -27,10 +28,10 @@ class AddProduct extends Component {
     data.append('price', this.state.price)
     data.append('compare_price', this.state.price)
     
-    axios
-    .post("http://127.0.0.1:8000/ecom/products/", data)
-    .then(result => {
-      NotificationManager.success(result.data.msg);
+    // axios
+    productService.createProduct(data).then(result => {
+      console.log(result);
+      NotificationManager.success("Product Added Sussceefully");
     })
     .catch(err => {
       if (err.response && err.response.status === 400)
@@ -65,7 +66,7 @@ class AddProduct extends Component {
                         <div className="col-sm-4">
                         <div className="form-group">
                                 <label >Title</label>
-                                <input type="text" reqired name="title" onChange={this.handleInput} className="form-control" placeholder="Enter Title" />
+                                <input type="text" required name="title" onChange={this.handleInput} className="form-control" placeholder="Enter Title" />
                             </div>
                         </div>
                         <div className="col-sm-4">

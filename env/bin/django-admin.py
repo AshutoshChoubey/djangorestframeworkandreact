@@ -1,4 +1,4 @@
-#!/var/www/html/learningPath/P/env/bin/python3
+#!/var/www/html/learningPath/django/env/bin/python3
 from django.core import management
 
 if __name__ == "__main__":

@@ -17,3 +17,4 @@ class Products(models.Model):
     created_at = models.DateTimeField(default=datetime.now()+timedelta(days=30)) 
     updated_at =  models.DateTimeField(auto_now_add=True, null=True)
     deleted_at =  models.DateTimeField(null=True)
+

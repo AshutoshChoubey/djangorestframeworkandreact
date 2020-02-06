@@ -28,11 +28,11 @@ function Layout(props) {
           {props.loggedIn ? (
             <Fragment>
               <ul className="navbar-nav mr-auto">
-                <li className={"nav-item " + (pathname === '/task' ? 'active' : '')} >
-                  <NavLink isActive={checkActive} to="/task" className="nav-link">Task</NavLink>
+                <li className={"nav-item " + (pathname === '/add-product' ? 'active' : '')}>
+                  <NavLink isActive={checkActive} to="/add-product" className="nav-link">Add Product</NavLink>
                 </li>
-                <li className={"nav-item " + (pathname === '/taskList' ? 'active' : '')}>
-                  <NavLink isActive={checkActive} to="/taskList" className="nav-link">TaskList</NavLink>
+                <li className={"nav-item " + (pathname === '/list-product' ? 'active' : '')}>
+                  <NavLink isActive={checkActive} to="/list-product" className="nav-link">Product List</NavLink>
                 </li>
                 {/* <li className={"nav-item " + (pathname === '/reminder' ? 'active' : '')}>
                   <NavLink isActive={checkActive} to="/reminder" className="nav-link">Reminder</NavLink>
@@ -53,7 +53,7 @@ function Layout(props) {
           ) : (
               <Fragment>
                 <ul className="navbar-nav ml-auto">
-                  <li className={"nav-item " + (pathname === '/login' ? 'active' : '')}>
+                  {/* <li className={"nav-item " + (pathname === '/login' ? 'active' : '')}>
                     <NavLink isActive={checkActive} to="/login" className="nav-link">Login</NavLink>
                   </li>
                   <li className={"nav-item " + (pathname === '/register' ? 'active' : '')}>
@@ -61,6 +61,12 @@ function Layout(props) {
                   </li>
                   <li className={"nav-item " + (pathname === '/forget-password' ? 'active' : '')}>
                     <NavLink isActive={checkActive} to="/forget-password" className="nav-link">Forget Password</NavLink>
+                  </li> */}
+                  <li className={"nav-item " + (pathname === '/add-product' ? 'active' : '')}>
+                    <NavLink isActive={checkActive} to="/add-product" className="nav-link">Add Product</NavLink>
+                  </li>
+                  <li className={"nav-item " + (pathname === '/list-product' ? 'active' : '')}>
+                    <NavLink isActive={checkActive} to="/list-product" className="nav-link">Product List</NavLink>
                   </li>
                 </ul>
               </Fragment>

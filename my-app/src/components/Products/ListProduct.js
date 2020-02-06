@@ -1,60 +1,36 @@
 import React, { Component } from "react";
 import { NotificationContainer, NotificationManager } from 'react-notifications';
-import axios from 'axios';
+import ProductService from './ProductService';
+const productService = new ProductService();
 class ListProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ProductList : "",
+      ProductList: [],
       errors: {}
     };
   }
   handleForm = e => {
     e.preventDefault();
-};
+  };
   handleInput = e => {
     e.preventDefault();
   };
   componentDidMount() {
-    fetch("http://127.0.0.1:8000/ecom/products")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          console.log(result);
-          // this.setState({
-          //   isLoaded: true,
-          //   items: result.items
-          // });
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          // this.setState({
-          //   isLoaded: true,
-          //   error
-          // });
-        }
-      )
-    // axios.get('http://127.0.0.1:8000/ecom/products',{
-    // headers: {
-    //   'Access-Control-Allow-Origin': '*',
-    // },
-    // proxy: {
-    //   host: '127.0.0.1',
-    //   port: 3000
-    // }})
-    //   .then(function (response) {
-    //      this.setState({ ProductList: response.data })
-    //     console.log(this.state);
-    //   })
-    //   .catch(function (error) {
-    //     // handle error
-    //     console.log(error);
-    //   })
-    //   .then(function () {
-    //     // always executed
-    //   });
+    let thisComponent = this;
+    productService.getProducts()
+      .then(function (response) {
+        thisComponent.setState({ ProductList: response.data });
+      })
+  }
+  handleDelete(id)
+  {
+    let selfComponent = this;
+      productService.deleteProduct(id).then(function (response) {
+        NotificationManager.warning("Product Deteted Successfully");
+        selfComponent.setState({ ProductList: response.data });
+      })
+    
   }
 
 
@@ -62,22 +38,48 @@ class ListProduct extends Component {
     return (
       <div className="content">
         <NotificationContainer />
-                <form onSubmit={this.handleForm}>
-                    <div className="card">
-                        <div className="card-header text-center">Product List</div>
-                        <div className="card-body">
-                          <div className="row" style={{ marginTop: 20 }}>
-                            <div className="col-sm-12">
-                              Product List
-                            </div>
-                          </div>
-                        </div>
-                        <div className="card-footer text-center"> <button type="submit" className="btn btn-primary text-center">Add Product</button></div>
-                    </div>
-                   
-
-                </form>
+        <form onSubmit={this.handleForm}>
+          <div className="card">
+            <div className="card-header text-center">Product List</div>
+            <div className="card-body table-responsive">
+              <div className="row" style={{ marginTop: 20 }}>
+                <div className="col-sm-12">
+                  <table className="table" >
+                    <thead>
+                      <tr>
+                        <th>Product Id</th>
+                        <th >Product Image</th>
+                        <th>Product Name</th>
+                        <th>Product Desription</th>
+                        <th>Price</th>
+                        <th>Created Date</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {this.state.ProductList.map(data =>
+                        <tr key={data.id}>
+                          <td>{data.id}</td>
+                          <td >
+                            <img src={"http://localhost:8000"+data.image} alt={data.title} className="img-thumbnail" ></img>
+                          </td>
+                          <td>{data.title}</td>
+                      <td>{data.descripition}</td>
+                      <td>{data.price}</td>
+                      <td>{data.created_at}</td>
+                      <td> <button className="btn btn-danger"  onClick={(e)=> this.handleDelete(data.id) }> Delete</button></td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
+          </div>
+
+
+        </form>
+      </div>
     );
   }
 }

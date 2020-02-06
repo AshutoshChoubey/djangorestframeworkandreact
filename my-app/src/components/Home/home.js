@@ -20,9 +20,9 @@ class Home extends Component {
     }
     else {
       return (
-        <div> <h1>Welcome To DTR</h1>
-          <h2>Please login to see inside <Link to="/login">Login</Link></h2>
-          <h3>If you are new please register here <Link to="/register">Sign Up</Link></h3>
+        <div> <h1>Ecommerce Backend Management</h1>
+          {/* <h2>Please login to see inside <Link to="/login">Login</Link></h2>
+          <h3>If you are new please register here <Link to="/register">Sign Up</Link></h3> */}
           <h3>Add Profuct:-<Link to="/add-product">Add</Link></h3>
           <h3>Profuct List:-<Link to="/list-product">Product List</Link></h3>
         </div >
