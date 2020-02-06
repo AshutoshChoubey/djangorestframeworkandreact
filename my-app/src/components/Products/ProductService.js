@@ -15,8 +15,8 @@ export default class ProductService{
 	// 	return axios.get(url).then(response => response.data);
 	// }
 
-	getProduct(id) {
-		const url = `${API_URL}/api/products/?id=${id}`;
+	getProductById(id) {
+		const url = `${API_URL}/ecom/products/?id=${id}`;
 		return axios.get(url).then(response => response.data);
 	}
 
@@ -31,7 +31,7 @@ export default class ProductService{
 	}
 
 	updateProduct(product){
-		const url = `${API_URL}/ecom/products/?id=${product.id}`;
-		return axios.put(url,product);
+		const url = `${API_URL}/ecom/products/`;
+		return axios.put(url,product).then(response => response.data);
 	}
 }

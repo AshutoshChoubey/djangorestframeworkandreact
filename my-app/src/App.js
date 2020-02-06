@@ -4,6 +4,7 @@ import Login from "./components/Auth/Login";
 import Home from "./components/Home/home";
 import AddProduct from "./components/Products/AddProduct";
 import ListProduct from "./components/Products/ListProduct";
+import EditProduct from "./components/Products/EditProduct";
 import Register from "./components/Auth/Register";
 import GuestRoute from "./components/GuestRoute";
 import Layout from "./components/Layout";
@@ -22,6 +23,7 @@ function App() {
           <GuestRoute path="/change-password/:slug" component={ResetPassword} />
           <GuestRoute path="/add-product" exact component={AddProduct} />
           <GuestRoute path="/list-product" exact component={ListProduct} />
+           <GuestRoute path="/product-edit/:id" exact component={EditProduct} />
         </div>
         <Route path="/" exact component={Home} />
       </Layout>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import ProductService from './ProductService';
+import {Link} from 'react-router-dom';
 const productService = new ProductService();
 class ListProduct extends Component {
   constructor(props) {
@@ -67,7 +68,7 @@ class ListProduct extends Component {
                       <td>{data.descripition}</td>
                       <td>{data.price}</td>
                       <td>{data.created_at}</td>
-                      <td> <button className="btn btn-danger"  onClick={(e)=> this.handleDelete(data.id) }> Delete</button></td>
+                      <td><Link  className="btn btn-primary"  to={"/product-edit/"+data.id}>Edit</Link>  <button className="btn btn-danger"  onClick={(e)=> this.handleDelete(data.id) }> Delete</button></td>
                         </tr>
                       )}
                     </tbody>

@@ -13,6 +13,7 @@ from rest_framework.parsers import FileUploadParser
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.decorators import api_view
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from rest_framework import status
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -31,7 +32,6 @@ class GroupViewSet(viewsets.ModelViewSet):
 class ProductViewSet(GenericAPIView):
     @classmethod
     def get(self,request):
-        # print(request.GET.get('id'))
         if request.GET.get('id'):
             productsData = Products.objects.get(pk=request.GET.get('id'))
             SnippetSerializer = ProductsSerializer(productsData)
@@ -47,12 +47,6 @@ class ProductViewSet(GenericAPIView):
     @classmethod
     def post(self,request):
         data = request.data
-        # parser_classes = (MultiPartParser, FormParser,FileUploadParser,)
-        # if 'file' not in request.data:
-        #     raise ParseError("Empty content")
-        # f = request.data['image']
-        # Products.image.save(f.name, f, save=True)
-        # return Response(status=status.HTTP_201_CREATED)
         data['slug']= slugify(request.data['title'])
         serializerData=''
         saveProduct = ProductsSerializer(data=data)
@@ -64,37 +58,22 @@ class ProductViewSet(GenericAPIView):
             serializerData=saveProduct.errors
             statusResponse=status.HTTP_400_BAD_REQUEST
         response={"status":1,"message":"Product Added Successfully","statusResponse":statusResponse,"serializerData":serializerData}
-        # response={"status":1,"serializerData":f.name}
         return JsonResponse(response, safe=False)
     def put(self,request,id=None):
-        upsizes_arr={}
         data = request.data
-        for upsizes in data:
-            #print(upsizes)
-            size_id=upsizes['id']
-            upsizes_arr = {
-                "id": size_id,
-                "TableCode":upsizes['TableCode'] ,
-                "TableName":upsizes['TableName'],
-                "Description":upsizes['Description'],
-                "ActualSizeCode":upsizes['ActualSizeCode'],
-                "ActualSizeTypeDescription":upsizes['ActualSizeTypeDescription'],
-                "ActualSizeProportionDescription":upsizes['ActualSizeProportionDescription'],
-                "SizeFamily":upsizes['SizeFamily'],
-                "SizeStatus":upsizes['SizeStatus']
-
-              }
-            #print(size_id)
-            instance = Size.objects.filter(pk=size_id).first()
-            #print(instance)
-            serializer = SizeSerializer(instance,data=upsizes_arr)
-            if serializer.is_valid():
-                serializer.save()
-        if     serializer:        
-            data={'status':1,'message':'Size updated successfully.'}
+        instance = Products.objects.filter(pk=request.data['id']).first()
+        dataimage=data.copy()
+        if not dataimage['image']:
+            dataimage.pop('image', None)
+        serializer = ProductsSerializer(instance,data=dataimage)
+        if serializer.is_valid():
+            serializer.save()
+        if  serializer:     
+            data={'status':1,'message':'Size updated successfully.',"data":serializer.data}
+            return JsonResponse(data,status=200,safe=False)
         else:
             data={'status':0,'message':'Oops. there was a problem.'}
-        return JsonResponse(data,safe=False)
+            return JsonResponse(data,status=500,safe=False)
     @classmethod
     def delete(self,request,id=None):
         instance = Products.objects.filter(pk=request.GET.get('id')).first()
