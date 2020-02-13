@@ -7,9 +7,9 @@ class Products(models.Model):
 
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, null=True)
-    tag = models.CharField(max_length=255, null=True)
+    tag = models.TextField(max_length=255, null=True)
     category = models.CharField(max_length=255, null=True)
-    descripition = models.CharField(max_length=255, null=True)
+    descripition = models.TextField(null=True)
     image = models.FileField(null=True)
     price = models.IntegerField(null=True)
     compare_price = models.IntegerField(null=True)

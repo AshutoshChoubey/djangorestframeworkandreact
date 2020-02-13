@@ -46,7 +46,7 @@ class EditProduct extends Component {
     data.append('descripition', this.state.descripition)
     data.append('image', this.state.image)
     data.append('price', this.state.price)
-    data.append('compare_price', this.state.price)
+    data.append('compare_price', this.state.compare_price)
     productService.updateProduct(data).then(response => {
       if(response.data)
       {

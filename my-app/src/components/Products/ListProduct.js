@@ -65,7 +65,10 @@ class ListProduct extends Component {
                             <img src={"http://localhost:8000"+data.image} alt={data.title} className="img-thumbnail" ></img>
                           </td>
                           <td>{data.title}</td>
-                      <td>{data.descripition}</td>
+                      <td> { ((data.descripition).length > 100) ? 
+    (((data.descripition).substring(0,100-3)) + '  ....') : 
+    data.descripition } 
+   </td>
                       <td>{data.price}</td>
                       <td>{data.created_at}</td>
                       <td><Link  className="btn btn-primary"  to={"/product-edit/"+data.id}>Edit</Link>  <button className="btn btn-danger"  onClick={(e)=> this.handleDelete(data.id) }> Delete</button></td>

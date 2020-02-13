@@ -26,7 +26,7 @@ class AddProduct extends Component {
     data.append('descripition', this.state.descripition)
     data.append('image', this.state.image)
     data.append('price', this.state.price)
-    data.append('compare_price', this.state.price)
+    data.append('compare_price', this.state.compare_price)
     
     // axios
     productService.createProduct(data).then(result => {

@@ -14,6 +14,8 @@ from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.decorators import api_view
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from rest_framework import status
+import os
+from django.conf import settings
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -77,6 +79,11 @@ class ProductViewSet(GenericAPIView):
     @classmethod
     def delete(self,request,id=None):
         instance = Products.objects.filter(pk=request.GET.get('id')).first()
+        try:
+            image_path = os.path.join(settings.MEDIA_ROOT, str(instance.image))
+            os.unlink(image_path)
+        except:
+            pass
         instance.delete()
         productsData = Products.objects.all()
         SnippetSerializer = ProductsSerializer(productsData,many="true")
@@ -86,7 +93,7 @@ class ProductViewSet(GenericAPIView):
 @api_view(['GET', 'POST'])
 def products_list(request):
     """
- List  products, or create a new customer.
+ List  products, or create a new Products.
  """
     if request.method == 'GET':
         data = []
